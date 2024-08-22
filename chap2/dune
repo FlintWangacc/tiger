@@ -1,0 +1,21 @@
+(library
+ (name errormsg)
+ (modules errormsg)
+ (wrapped false))
+
+(ocamllex lexer)
+
+(library
+ (name tokens)
+ (modules tokens))
+
+(library
+ (name lexer)
+ (libraries tokens errormsg)
+ (modules lexer))
+
+(executable
+ (name main)
+ (flags (:standard -w -a))
+ (libraries lexer)
+ (modules main))
