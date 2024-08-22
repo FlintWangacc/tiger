@@ -1,0 +1,9 @@
+(library
+ (name errormsg2))
+
+(library
+ (name tokens))
+
+(executable
+ (name lexer)
+ (libraries errormsg2 tokens))
