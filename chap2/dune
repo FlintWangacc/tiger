@@ -1,9 +1,15 @@
 (library
- (name errormsg2))
+ (name errormsg2)
+ (modules errormsg)
+ (wrapped false))
+
+(ocamllex lexer)
 
 (library
- (name tokens))
+ (name tokens)
+ (modules tokens))
 
 (executable
  (name lexer)
- (libraries errormsg2 tokens))
+ (libraries errormsg2 tokens)
+ (modules lexer))
