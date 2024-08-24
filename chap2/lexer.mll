@@ -2,8 +2,8 @@
     (*open Parser*)
     exception EOF
 
-    let lineNum = ErrorMsg.lineNum
-    let linePos = ErrorMsg.linePos
+    let lineNum = Errormsg.lineNum
+    let linePos = Errormsg.linePos
 }
 
 rule token = parse
