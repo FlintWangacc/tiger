@@ -1,5 +1,4 @@
 {
-    open Lexing
     (*open Parser*)
     exception EOF
 
@@ -12,10 +11,18 @@
 }
 
 rule token = parse
-        "\n"           {advance_line (Lexing.lexeme_start lexbuf); (*continue() *)}
-    |   ","            {let p = Lexing.lexeme_start lexbuf in Tokens.comma1(p, p+1)}
-    |   "var"            {let p = Lexing.lexeme_start lexbuf in Tokens.var1(p, p+3)}
-    |   "123"            {let p = Lexing.lexeme_start lexbuf in Tokens.int1(p, p+3)}
-    |   _              {let p = Lexing.lexeme_start lexbuf in
-                        let str = Lexing.lexeme lexbuf in 
-                        ErrorMsg.error p ("illegal character " ^ str); (*continue()*) }
+        "\n"           {advance_line (Lexing.lexeme_start lexbuf) (*continue() *)}
+    |   ","            {(Tokens.comma1(Tokens.of_int (Lexing.lexeme_start lexbuf), Tokens.of_int (Lexing.lexeme_end lexbuf))) |>
+                            Tokens.to_string |>
+                            Printf.printf "%s" |>
+                            ignore}
+    |   "var"            {Tokens.var1(Tokens.of_int (Lexing.lexeme_start lexbuf), Tokens.of_int (Lexing.lexeme_end lexbuf)) |>
+                            Tokens.to_string |>
+                            Printf.printf "%s" |>
+                            ignore}
+    |   "123"            {Tokens.int1(123, Tokens.of_int (Lexing.lexeme_start lexbuf), Tokens.of_int (Lexing.lexeme_end lexbuf)) |>
+                            Tokens.to_string |>
+                            Printf.printf "%s" |>
+                            ignore}
+    |   _              {let str = Lexing.lexeme lexbuf in
+                        Errormsg.error (Lexing.lexeme_start lexbuf) ("illegal character " ^ str) |> ignore (*continue()*) }

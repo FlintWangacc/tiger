@@ -1,5 +1,5 @@
 (library
- (name errormsg2)
+ (name errormsg)
  (modules errormsg)
  (wrapped false))
 
@@ -9,7 +9,13 @@
  (name tokens)
  (modules tokens))
 
-(executable
+(library
  (name lexer)
- (libraries errormsg2 tokens)
+ (libraries tokens errormsg)
  (modules lexer))
+
+(executable
+ (name main)
+ (flags (:standard -w -a))
+ (libraries lexer)
+ (modules main))
