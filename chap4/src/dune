@@ -1,0 +1,16 @@
+(ocamllex lexer)
+
+(menhir
+ (modules parser))
+
+(library
+ (name src)
+ (wrapped false)
+ (libraries extlib ounit2 str)
+ (modules
+  absyn
+  error_msg
+  lexer
+  parser
+  prabsyn
+  symbol))
